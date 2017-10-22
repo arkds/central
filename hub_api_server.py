@@ -54,7 +54,7 @@ def post_temperature():
 
 
 def main():
-    app.run(debug=True, port=PORT)
+    app.run(debug=True, port=PORT, host='0.0.0.0')
 
 
 if __name__ == '__main__':
