@@ -49,7 +49,7 @@ def temperature():
 
 
 def main():
-    app.run(debug=True)
+    app.run(debug=True, port=PORT)
 
 
 if __name__ == '__main__':
