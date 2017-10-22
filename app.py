@@ -80,14 +80,29 @@ def post_temperature():
     }
     """
 
-    print(content)
-
     try:
-        repo.add(Temperature(
-            device_id=0,  # content['device_id'],  # FIXME
-            timestamp=content['timestamp'],
-            temperature=content['temperature']
-        ))
+
+        """
+        JSON to POST looks like this:
+        
+        {
+            'temperatures': [
+                {
+                    'temperature': 25,
+                    'timestamp': 1000000,
+                },
+                ...
+            ]
+        }
+        """
+
+        repo.add_all([
+            Temperature(
+                device_id=0,
+                temperature=temp['temperature'],
+                timestamp=temp['timestamp']
+            ) for temp in content['temperatures']
+        ])
     except IntegrityError:
         return jsonify({'all_good': False, 'error': 'Key already exists'})
     except KeyError:

@@ -10,9 +10,14 @@ class Repository(object):
         self.engine = create_engine(DATABASE_URL, echo=True)
         self.Session = sessionmaker(bind=self.engine)
 
-    def add(self, entry):
+    # def add(self, entry):
+    #     session = self.Session()
+    #     session.add(entry)
+    #     session.commit()
+
+    def add_all(self, entries):
         session = self.Session()
-        session.add(entry)
+        session.add_all(entries)
         session.commit()
 
     def temperatures(self, device_id):
