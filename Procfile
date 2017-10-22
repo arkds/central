@@ -1,1 +1,1 @@
-web: python hub_api_server.py
+web: python app.py
