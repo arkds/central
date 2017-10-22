@@ -9,5 +9,5 @@ engine = create_engine(DATABASE_URL, echo=True)
 Session = sessionmaker(engine)
 
 session = Session()
-session.add(Device(id=0))
+session.add(Device(id=666))
 session.commit()

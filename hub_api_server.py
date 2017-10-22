@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, redirect, render_template, request
 from sqlalchemy.exc import IntegrityError
 
 from config import DATABASE_URL, PORT
@@ -8,6 +8,16 @@ from repository import Repository
 app = Flask(__name__)
 
 repo = Repository(DATABASE_URL)
+
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+
+@app.route('/index')
+def redirect_to_index():
+    return redirect('/')
 
 
 @app.route('/temperature', methods=['GET'])
