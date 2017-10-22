@@ -1,8 +1,8 @@
-from models import Device
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from src.config import DATABASE_URL
+from config import DATABASE_URL
+from models import Device
 
 engine = create_engine(DATABASE_URL, echo=True)
 
