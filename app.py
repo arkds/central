@@ -40,7 +40,7 @@ def get_plot():
     plt.plot(list(range(10)), list(randint(1, 100) for _ in range(10)))
     plt.savefig('tmp/0.png')
     plt.clf()
-    return send_file('0.png', mimetype='image/jpg')
+    return send_file('tmp/0.png', mimetype='image/jpg')
 
 
 @app.route('/temperature', methods=['GET'])
