@@ -8,7 +8,8 @@ __pycache__/
 # C extensions
 *.so
 
-tmp
+tmp/*
+!tmp/.gitkeep
 
 # Distribution / packaging
 .Python
