@@ -1,1 +1,1 @@
-web: gunicorn hub_api_server:app
+web: python hub_api_server.py
