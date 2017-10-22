@@ -2,6 +2,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 from config import DATABASE_URL
+from models import Temperature
 
 
 class Repository(object):
@@ -13,3 +14,9 @@ class Repository(object):
         session = self.Session()
         session.add(entry)
         session.commit()
+
+    def temperatures(self, device_id):
+        session = self.Session()
+        return session.query(Temperature).filter(
+            Temperature.device_id == device_id
+        )

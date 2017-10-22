@@ -1,5 +1,3 @@
-from random import randint
-
 import matplotlib
 
 # Use Agg as backend, necessary for Heroku
@@ -37,7 +35,15 @@ def page_not_found(error):
 
 @app.route('/temperature/stats')
 def get_plot():
-    plt.plot(list(range(10)), list(randint(1, 100) for _ in range(10)))
+    temps = repo.temperatures(0)[:100]
+    print(temps)
+    timestamps = []
+    _temps = []
+    for temp in temps:
+        _temps.append(temp.temperature)
+        timestamps.append(temp.timestamp)
+    temps = _temps
+    plt.plot(timestamps, temps)
     plt.savefig('tmp/0.png')
     plt.clf()
     return send_file('tmp/0.png', mimetype='image/jpg')
@@ -45,7 +51,16 @@ def get_plot():
 
 @app.route('/temperature', methods=['GET'])
 def get_temperature():
-    return jsonify({'all_good': True})
+    temps = []
+    for temp in repo.temperatures(0):
+        temps.append({
+            'temperature': temp.temperature,
+            'timestamp': temp.timestamp
+        })
+    return jsonify({
+        'all_good': True,
+        'temperatures': temps
+    })
 
 
 @app.route('/temperature', methods=['POST'])
