@@ -1,1 +1,1 @@
-web: python src/hub_api_server.py
+web: gunicorn src/wsgi.py --log-file -

@@ -1,9 +1,9 @@
-from config import DATABASE_URL
 from flask import Flask, jsonify, request
-from models import Temperature
 from sqlalchemy.exc import IntegrityError
 
-from src.repository import Repository
+from .config import DATABASE_URL
+from .models import Temperature
+from .repository import Repository
 
 app = Flask(__name__)
 
