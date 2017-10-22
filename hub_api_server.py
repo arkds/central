@@ -10,8 +10,13 @@ app = Flask(__name__)
 repo = Repository(DATABASE_URL)
 
 
+@app.route('/temperature', methods=['GET'])
+def get_temperature():
+    return jsonify({'all_good': True})
+
+
 @app.route('/temperature', methods=['POST'])
-def temperature():
+def post_temperature():
     content = request.json
 
     """
