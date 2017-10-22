@@ -20,6 +20,11 @@ def redirect_to_index():
     return redirect('/')
 
 
+@app.errorhandler(404)
+def page_not_found(error):
+    return redirect('/')
+
+
 @app.route('/temperature', methods=['GET'])
 def get_temperature():
     return jsonify({'all_good': True})
