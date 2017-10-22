@@ -1,4 +1,7 @@
-from flask import Flask, jsonify, redirect, render_template, request
+from random import randint
+
+import matplotlib.pyplot as plt
+from flask import Flask, jsonify, redirect, render_template, request, send_file
 from sqlalchemy.exc import IntegrityError
 
 from config import DATABASE_URL, PORT
@@ -8,6 +11,8 @@ from repository import Repository
 app = Flask(__name__)
 
 repo = Repository(DATABASE_URL)
+
+plt.style.use('fivethirtyeight')
 
 
 @app.route('/')
@@ -23,6 +28,14 @@ def redirect_to_index():
 @app.errorhandler(404)
 def page_not_found(error):
     return redirect('/')
+
+
+@app.route('/temperature/stats')
+def get_plot():
+    plt.plot(list(range(10)), list(randint(1, 100) for _ in range(10)))
+    plt.savefig('tmp/0.png')
+    plt.clf()
+    return send_file('0.png', mimetype='image/jpg')
 
 
 @app.route('/temperature', methods=['GET'])
