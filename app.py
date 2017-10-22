@@ -1,5 +1,10 @@
 from random import randint
 
+import matplotlib
+
+# Use Agg as backend, necessary for Heroku
+matplotlib.use('Agg')
+
 import matplotlib.pyplot as plt
 from flask import Flask, jsonify, redirect, render_template, request, send_file
 from sqlalchemy.exc import IntegrityError
