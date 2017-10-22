@@ -1,1 +1,0 @@
-$env:DATABASE_URL=$(heroku config:get DATABASE_URL -a ark-hub)
