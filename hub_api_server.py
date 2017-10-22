@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request
 from sqlalchemy.exc import IntegrityError
 
-from config import DATABASE_URL
+from config import DATABASE_URL, PORT
 from models import Temperature
 from repository import Repository
 
