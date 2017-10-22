@@ -1,1 +1,1 @@
-python src/hub_api_server.py
+web: python src/hub_api_server.py
