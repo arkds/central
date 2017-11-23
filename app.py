@@ -138,6 +138,10 @@ def delete_temperature():
             'all_good': False,
             'error': error
         })
+    else:
+        return jsonify({
+            'all_good': True
+        })
 
 
 def main():
