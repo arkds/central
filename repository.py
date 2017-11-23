@@ -25,3 +25,14 @@ class Repository(object):
         return session.query(Temperature).filter(
             Temperature.device_id == device_id
         )
+
+    def delete_temperatures(self, temperatures):
+        session = self.Session()
+        for temp in temperatures:
+            device_id, timestamp = temp['device_id'], temp['timestamp']
+            session.delete(
+                Temperature(
+                    device_id=device_id,
+                    timestamp=timestamp
+                )
+            )

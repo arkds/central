@@ -63,22 +63,21 @@ def get_temperature():
     })
 
 
-@app.route('/temperature', methods=['POST'])
+@app.route('/temperature/add', methods=['POST'])
 def post_temperature():
-    content = request.json
-
     """
-    Specification:
-    
-    The dictionary POSTed should be of the
-    following structure:
-    
+    Specification
+
+    The dictionary POSTed should be of the following structure:
+
     {
         'device_id': <integer>
-        'temperature': <floating point>,
-        'timestamp': <floating point>,
+        'temperature': <float>,
+        'timestamp': <float>,
     }
     """
+
+    content = request.json
 
     try:
 
@@ -113,6 +112,31 @@ def post_temperature():
     else:
         return jsonify({
             'all_good': True
+        })
+
+
+@app.route('/temperature/delete', methods=['POST'])
+def delete_temperature():
+    """
+    Specification
+
+    The dictionary POSTed should be of following structure:
+
+    {
+        'temperatures': {
+            'device_id': <integer>,
+            'timestamp': <float>
+        }
+    }
+    """
+
+    temperatures = request.json['temperatures']
+    try:
+        repo.delete_temperatures(temperatures)
+    except KeyError as error:
+        return jsonify({
+            'all_good': False,
+            'error': error
         })
 
 
