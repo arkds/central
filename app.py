@@ -1,6 +1,9 @@
+import flask_sockets
 import matplotlib
 
 # Use Agg as backend, necessary for Heroku
+from flask_sockets import Sockets
+
 matplotlib.use('Agg')
 
 import matplotlib.pyplot as plt
@@ -12,6 +15,7 @@ from models import Temperature
 from repository import Repository
 
 app = Flask(__name__)
+sockets = Sockets(app)
 
 repo = Repository(DATABASE_URL)
 
@@ -142,6 +146,23 @@ def delete_temperature():
         return jsonify({
             'all_good': True
         })
+
+
+target_temperature = 21.
+
+
+@app.route('/temperature/set_target', methods=['POST'])
+def set_target_temperature():
+    global target_temperature
+    content = request.json
+    target_temperature = float(content['temperature'])
+    target_temperature = max(0., min(32., target_temperature))
+
+
+@app.route('/temperatures/target')
+def get_target_temperature():
+    global targt_temperature
+    return jsonify({'temperature': target_temperature})
 
 
 def main():
